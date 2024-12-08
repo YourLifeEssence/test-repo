@@ -28,6 +28,27 @@ bool test3()
     return candle.body_contains(2.0); // на границе тела (close)
 }
 
+// тест 4: Проверка, что точка внутри тела и теней свечи
+bool test4()
+{
+    Candle candle{ 0.0, 3.0, 1.0, 2.0 }; // open = 0.0, close = 3.0, body = (1.0, 2.0)
+    return candle.contains(2.5); // внутри всей свечи
+}
+
+// тест 5: Проверка, что точка на границе теней свечи
+bool test5()
+{
+    Candle candle{ 0.0, 3.0, 1.0, 2.0 };
+    return candle.contains(1.0); // на границе низкой тени (low)
+}
+
+// тест 6: Проверка, что точка на границе теней свечи
+bool test6()
+{
+    Candle candle{ 0.0, 3.0, 1.0, 2.0 };
+    return candle.contains(3.0); // на границе высокой тени (high)
+}
+
 void initTests()
 {
     tests.push_back(test1);
