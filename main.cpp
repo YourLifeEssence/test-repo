@@ -2,71 +2,66 @@
 #include <functional>
 #include <iostream>
 
-#include "tests.h"
+#include "candle.h"
 
-//массив всех тестов, который мы заполняем в функции initTests
+// массив всех тестов, который мы заполняем в функции initTests
 static std::vector<std::function<bool()>> tests;
 
-//тест 1
+// тест 1: Проверка, что точка внутри тела свечи
 bool test1()
 {
-  //пример какого-то теста
-  return 42 == (41 + 1); //passed
+    Candle candle{ 0.0, 3.0, 1.0, 2.0 }; // open = 0.0, close = 3.0, body = (1.0, 2.0)
+    return candle.body_contains(1.5); // внутри тела
 }
 
-//тест 2
+// тест 2: Проверка, что точка на границе тела свечи (открытие)
 bool test2()
 {
-  //пример какого-то теста
-  return 42 != (41 + 1); //failed
+    Candle candle{ 0.0, 3.0, 1.0, 2.0 };
+    return candle.body_contains(1.0); // на границе тела (open)
 }
 
-//тест 3
+// тест 3: Проверка, что точка на границе тела свечи (закрытие)
 bool test3()
 {
-  Candle candle{ 0.0, 3.0, 3.0, 3.0 };
-
-  //пример какого-то теста
-  return candle.high == 3.0;
+    Candle candle{ 0.0, 3.0, 1.0, 2.0 };
+    return candle.body_contains(2.0); // на границе тела (close)
 }
 
 void initTests()
 {
-  tests.push_back(test1);
-  tests.push_back(test2);
-  tests.push_back(test3);
-  //tests.push_back(test4);
-  //tests.push_back(test5);
+    tests.push_back(test1);
+    tests.push_back(test2);
+    tests.push_back(test3);
 }
 
 int launchTests()
 {
-  int total = 0;
-  int passed = 0;
+    int total = 0;
+    int passed = 0;
 
-  for (const auto& test : tests)
-  {
-    std::cout << "test #" << (total + 1);
-    if (test())
+    for (const auto& test : tests)
     {
-      passed += 1;
-      std::cout << " passed\n";
+        std::cout << "test #" << (total + 1);
+        if (test())
+        {
+            passed += 1;
+            std::cout << " passed\n";
+        }
+        else
+        {
+            std::cout << " failed\n";
+        }
+        total += 1;
     }
-    else
-    {
-      std::cout << " failed\n";
-    }
-    total += 1;
-  }
 
-  std::cout << "\ntests " << passed << "/" << total << " passed!" << std::endl;
+    std::cout << "\ntests " << passed << "/" << total << " passed!" << std::endl;
 
-  //0 = success
-  return total - passed;
+    return total - passed;
 }
 
 int main()
 {
-  initTests();
-  return launchTests();
+    initTests();
+    return launchTests();
 }
