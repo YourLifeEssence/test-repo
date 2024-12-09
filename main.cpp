@@ -112,11 +112,47 @@ bool test15()
     return candle.is_red() == false; // закрытие выше открытия
 }
 
+// тест 16: Проверка метода is_green для зеленой свечи (close > open)
+bool test16()
+{
+    Candle candle{ 3.0, 7.0, 2.0, 5.0 };
+    return candle.is_green() == true; // закрытие выше открытия
+}
+
+// тест 17: Проверка метода is_green для свечи, где close = open
+bool test17()
+{
+    Candle candle{ 5.0, 7.0, 3.0, 5.0 };
+    return candle.is_green() == false; // закрытие равно открытию
+}
+
+// тест 18: Проверка метода is_green для свечи, где close < open
+bool test18()
+{
+    Candle candle{ 5.0, 7.0, 3.0, 4.0 };
+    return candle.is_green() == false; // закрытие ниже открытия
+}
+
 void initTests()
 {
     tests.push_back(test1);
     tests.push_back(test2);
     tests.push_back(test3);
+    tests.push_back(test4);
+    tests.push_back(test5);
+    tests.push_back(test6);
+    tests.push_back(test7);
+    tests.push_back(test8);
+    tests.push_back(test9);
+    tests.push_back(test10);
+    tests.push_back(test11);
+    tests.push_back(test12);
+    tests.push_back(test13);
+    tests.push_back(test14);
+    tests.push_back(test15);
+    tests.push_back(test16);
+    tests.push_back(test17);
+    tests.push_back(test18);
 }
 
 int launchTests()
