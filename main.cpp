@@ -91,6 +91,27 @@ bool test12()
     return candle.body_size() == 1.0; // разница между open и close (5.0 - 4.0)
 }
 
+// тест 13: Проверка метода is_red для красной свечи (close < open)
+bool test13()
+{
+    Candle candle{ 5.0, 7.0, 3.0, 4.0 };
+    return candle.is_red() == true; // закрытие ниже открытия
+}
+
+// тест 14: Проверка метода is_red для свечи, где close = open
+bool test14()
+{
+    Candle candle{ 5.0, 7.0, 3.0, 5.0 };
+    return candle.is_red() == false; // закрытие равно открытию
+}
+
+// тест 15: Проверка метода is_red для свечи, где close > open
+bool test15()
+{
+    Candle candle{ 3.0, 7.0, 2.0, 5.0 };
+    return candle.is_red() == false; // закрытие выше открытия
+}
+
 void initTests()
 {
     tests.push_back(test1);
