@@ -49,6 +49,27 @@ bool test6()
     return candle.contains(3.0); // на границе высокой тени (high)
 }
 
+// тест 7: Проверка размера всей свечи, когда high и low равны
+bool test1()
+{
+    Candle candle{ 0.0, 3.0, 3.0, 0.0 };
+    return candle.full_size() == 0.0; // тени равны нулю
+}
+
+// тест 8: Проверка размера свечи с ненулевыми тенями
+bool test2()
+{
+    Candle candle{ 1.0, 5.0, 0.0, 3.0 };
+    return candle.full_size() == 5.0; // разница между high и low (5.0 - 0.0)
+}
+
+// тест 9: Проверка размера свечи, когда low больше, чем high
+bool test3()
+{
+    Candle candle{ 3.0, 2.0, 5.0, 4.0 };
+    return candle.full_size() == 3.0; // разница между high и low (5.0 - 2.0)
+}
+
 void initTests()
 {
     tests.push_back(test1);
